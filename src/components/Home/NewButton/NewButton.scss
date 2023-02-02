@@ -1,0 +1,40 @@
+.newbutton{
+  $rayon: 33px;
+  $diameter: $rayon*2;
+  $padding:6px;
+  height: $diameter;
+  width: $diameter;
+  border-radius: $diameter;
+  background-color:darkorange;
+  z-index: 2;
+  position: fixed;
+  bottom: 46px;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  .padding{
+    padding: $padding;
+  }
+
+  $line-width: 4px;
+  $line-border-radius: 50px;
+  .line1{
+    width: $line-width; 
+    height: $diameter - $padding *2;
+    background-color: black;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: $line-border-radius;
+  }
+
+  .line2{
+    width: $diameter - $padding *2;
+    height: $line-width;
+    background-color: black;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    border-radius: $line-border-radius;
+  }
+}
