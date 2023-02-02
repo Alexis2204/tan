@@ -1,15 +1,19 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './New.scss'
 import BackButton from './BackButton/BackButton';
 
 const New = () => {
+  const navigate = useNavigate();
   // Start
   const [start, setStart] = useState('');
+  const [startJson, setStartJson] = useState({});
   const [listStart, setListStart] = useState([]);
   const [isStartSelect, setIsStartSelect] = useState(false);
 
   // Finish
   const [finish, setFinish] = useState('');
+  const [finishJson, setFinishJson] = useState({});
   const [listFinish, setListFinish] = useState([]);
   const [isFinishSelect, setIsFinishSelect] = useState(false);
 
@@ -23,7 +27,18 @@ const New = () => {
 
   const handleAdd = (e) => {
     if (isStartSelect && isFinishSelect){
-      alert(start, finish)
+      let trajet = {};
+      let listTrajet = localStorage.getItem('listTrajet');
+      if (!listTrajet){
+        trajet = {startJson, finishJson};
+        listTrajet = [trajet];
+      } else {
+        listTrajet = JSON.parse(listTrajet);
+        trajet = {startJson, finishJson};
+        listTrajet.push(trajet);
+      }
+      localStorage.setItem('listTrajet', JSON.stringify(listTrajet));
+      navigate("/");
     } else {
       alert('select a start and a finish')
     }
@@ -48,6 +63,7 @@ const New = () => {
   const handleChangeStart = (e) => {
     setStart(e.target.value);
     setIsStartSelect(false);
+    setStartJson({});
     setListStartStations(e.target.value);
   }
 
@@ -55,12 +71,14 @@ const New = () => {
     setStart(getName(item.name));
     setListStart([]);
     setIsStartSelect(true);
+    setStartJson(item);
   }
 
   // Finish functions
   const handleChangeFinish = (e) => {
     setFinish(e.target.value);
     setIsFinishSelect(false);
+    setFinishJson({});
     setListFinishStations(e.target.value);
   }
 
@@ -68,6 +86,7 @@ const New = () => {
     setFinish(getName(item.name));
     setListFinish([]);
     setIsFinishSelect(true);
+    setFinishJson(item);
   }
 
 

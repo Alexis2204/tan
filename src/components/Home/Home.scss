@@ -1,17 +1,18 @@
 .home{
-  background-color: darkgray;
   display: flex;
   flex-direction: column;
   align-content: center;
   flex-wrap: wrap;
   border-radius: 50px;
   padding-bottom: 18px;
+  gap: 18px;
 
   .titre2{
     background-color: chartreuse;
     text-align: center;
-    border-radius: 30px;
+    border-radius: 50px;
     padding: 8px 0;
-    margin: 15px 0;
+    width: 325px;
+    max-height: 46px;
   }
 }
