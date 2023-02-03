@@ -1,0 +1,33 @@
+.trajet{
+  padding-top: 18px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+
+  .search{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: 30px;
+    background-color:aqua;
+  }
+
+  .ButtonModify{
+    background-color: darkcyan;
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    z-index: 2;
+  }
+
+  .ButtonDelete{
+    background-color: crimson;
+    position: fixed;
+    bottom: 18px;
+    left: 18px;
+    z-index: 2;
+  }
+}
