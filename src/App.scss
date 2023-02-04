@@ -6,6 +6,10 @@
   font-size: 1.3em;
 }
 
+.empty{
+  text-align: center;
+}
+
 .searchList{
   width: 300px;
   padding: 0;
@@ -46,6 +50,8 @@ input{
 .app{
   display: grid;
   grid-template-rows: 110px auto;
+  min-height: 110vh;
+
   .logo{
     font-size: 3em;
     grid-row: 1;

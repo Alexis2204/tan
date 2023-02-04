@@ -1,10 +1,10 @@
 import './TrajetCard.scss'
 
 const TrajetCard = (props) => {
-  const {start, finish} = props;
+  const {id, start, finish} = props;
   return (
     <div className="trajet-card">
-      <div className="titre3">Trajet 1</div>
+      <div className="titre3">Trajet {id + 1}</div>
       <div className="content">
         <p>Start : {start}</p>
         <br></br>

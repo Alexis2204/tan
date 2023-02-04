@@ -35,16 +35,17 @@ const Home = () => {
   return (
     <div className='home'>
       <div className="titre2">Favoris</div>
-      {listStationsTrajet
+      {listStationsTrajet.length != 0
       ? listStationsTrajet.map( (trajet, index) => (
         <div key={index} onClick={(e) => {goToTrajet(index, e)}}>
           <Trajet
+            id={index}
             start={trajet.start}
             finish={trajet.finish}>  
           </Trajet>
         </div>
       ))
-      : <p>Ajouter un trajet</p>}
+      : <p className='empty'>Ajouter un trajet</p>}
       <NewButton></NewButton>
     </div>
   );

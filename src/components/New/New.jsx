@@ -40,7 +40,7 @@ const New = () => {
       localStorage.setItem('listTrajet', JSON.stringify(listTrajet));
       navigate("/");
     } else {
-      alert('select a start and a finish')
+      alert('select a start and a finish');
     }
   }
   
