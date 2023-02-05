@@ -1,6 +1,6 @@
 import './Home.scss';
 import NewButton from '../Button/NewButton/NewButton';
-import Trajet from '../TrajetCard/TrajetCard';
+import ListTrajet from '../../ListTrajet/ListTrajet';
 import { getName } from '../../functions';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -31,15 +31,16 @@ const Home = () => {
     <div className='home'>
       <div className="titre2">Favoris</div>
       {listStationsTrajet.length != 0
-      ? listStationsTrajet.map( (trajet, index) => (
-        <div key={index} onClick={(e) => {goToTrajet(index, e)}}>
-          <Trajet
-            id={index}
-            start={trajet.start}
-            finish={trajet.finish}>  
-          </Trajet>
-        </div>
-      ))
+      ? <ListTrajet listTrajet={listStationsTrajet} ></ListTrajet>
+      // listStationsTrajet.map( (trajet, index) => (
+      //   <div key={index} onClick={(e) => {goToTrajet(index, e)}}>
+      //     <Trajet
+      //       id={index}
+      //       start={trajet.start}
+      //       finish={trajet.finish}>  
+      //     </Trajet>
+      //   </div>
+      // ))
       : <p className='empty'>Ajouter un trajet</p>}
       <NewButton></NewButton>
     </div>

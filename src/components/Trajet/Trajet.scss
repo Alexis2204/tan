@@ -6,26 +6,17 @@
   align-items: center;
   gap: 18px;
 
-  body{
-    background-color: #26133C;
-    background-image: url("./media/images/background-modified.png");
-    background-size: 100vw;
-    background-position: center 300px;
-    background-repeat: no-repeat;
-    border-radius: 50px;
-  }
-
   .search{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
     border-radius: 30px;
-    background-color:aqua;
+    background-color:#02e9f7;
   }
 
   .ButtonModify{
-    background-color: darkcyan;
+    background-color: #02e9f7;
     position: fixed;
     bottom: 18px;
     right: 18px;

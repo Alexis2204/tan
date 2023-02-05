@@ -5,6 +5,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 18px;
+  min-height: 319px;
 
   .search{
     display: flex;
@@ -16,7 +17,8 @@
   }
 
   .ButtonAdd{
-    background-color: darkcyan;
+    background-color: #02e9f7;
+    color: #26133c;
     position: fixed;
     bottom: 18px;
     right: 18px;

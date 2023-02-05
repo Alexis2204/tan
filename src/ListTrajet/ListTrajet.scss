@@ -1,0 +1,32 @@
+.listTrajetGlobal{
+  .background{
+    background-image: url("../media/images/background-modified.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    position: fixed;
+    top: 208px;
+    z-index: -1;
+    height: 238px;
+    width: 95vw;
+    min-width: 325px;
+    filter: brightness(0.7);
+  }
+
+  .listTrajet{
+    height: 238px;
+    overflow: hidden;
+  
+    .listTrajet-container {
+      overflow: scroll;
+      height: 100%;
+    }
+    
+    .listTrajet-item {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+  }
+}

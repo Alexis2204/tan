@@ -8,15 +8,16 @@
 
 .empty{
   text-align: center;
+  color: #10f67c;
+  height: 206px;
 }
 
 body{
   background-color: #26133C;
-  background-image: url("./media/images/background-modified.png");
-  background-size: 100vw;
-  background-position: center 205px;
-  background-repeat: no-repeat;
-  border-radius: 50px;
+  // background-image: url("./media/images/background-modified.png");
+  // background-size: 100vw;
+  // background-position: center 205px;
+  // background-repeat: no-repeat;
 }
 
 .searchList{
@@ -79,14 +80,13 @@ input{
   }
   .page{
     grid-row: 2;
-    min-height: 80vh;
   }
 
   footer{
     grid-row: 3;
     height: 4 * 18px;
     border-radius: 50px;
-    background-color: darkgray;
+    background-color: rgb(61, 61, 61);
   }
 
 }

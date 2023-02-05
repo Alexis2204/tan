@@ -5,7 +5,7 @@
   height: $diameter;
   width: $diameter;
   border-radius: $diameter;
-  background-color:darkorange;
+  background-color: #10f67c;
   z-index: 2;
   position: fixed;
   bottom: 46px;
@@ -21,7 +21,7 @@
   .line1{
     width: $line-width; 
     height: $diameter - $padding *2;
-    background-color: black;
+    background-color: #26133c;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
@@ -31,7 +31,7 @@
   .line2{
     width: $diameter - $padding *2;
     height: $line-width;
-    background-color: black;
+    background-color: #26133c;  
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
