@@ -6,6 +6,7 @@ import BackButton from '../Button/BackButton/BackButton';
 
 const Trajet = () => {
   const navigate = useNavigate();
+  const api = import.meta.env.VITE_API_PATH;
   const { id } = useParams();
   const [listTrajet, setListTrajet] = useState(JSON.parse(localStorage.getItem('listTrajet')) || []);
   const [listItineraire, setListItineraire] = useState([]);
@@ -95,7 +96,7 @@ const Trajet = () => {
       `&extra[perturbation]=false` +
       `&extra[acccessibitlity]=false`;
 
-      const url = `http://localhost:3000/referentiel/getitineraire?${queryParams}`;
+      const url = `${api}/referentiel/getitineraire?${queryParams}`;
 
       const response = await fetch(url);
       const json = await response.json();
@@ -108,14 +109,14 @@ const Trajet = () => {
 
   // Start API 
   const setListStartStations = async (name) => {
-    const response = await fetch(`http://localhost:3000/referentiel/autocomplete?s=cityway&q=${name}`);
+    const response = await fetch(`${api}/referentiel/autocomplete?s=cityway&q=${name}`);
     const json = await response.json();
     setListStart(json);
   }
 
   // Finish API
   const setListFinishStations = async (name) => {
-    const response = await fetch(`http://localhost:3000/referentiel/autocomplete?s=cityway&q=${name}`);
+    const response = await fetch(`${api}/referentiel/autocomplete?s=cityway&q=${name}`);
     const json = await response.json();
     setListFinish(json);
   }
