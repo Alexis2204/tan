@@ -6,6 +6,15 @@
   align-items: center;
   gap: 18px;
 
+  body{
+    background-color: #26133C;
+    background-image: url("./media/images/background-modified.png");
+    background-size: 100vw;
+    background-position: center 300px;
+    background-repeat: no-repeat;
+    border-radius: 50px;
+  }
+
   .search{
     display: flex;
     flex-direction: column;
@@ -29,11 +38,5 @@
     bottom: 18px;
     left: 18px;
     z-index: 2;
-  }
-
-  .red{
-    height: 20px;
-    width: 10px;
-    background-color: red;
   }
 }

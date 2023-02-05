@@ -10,6 +10,15 @@
   text-align: center;
 }
 
+body{
+  background-color: #26133C;
+  background-image: url("./media/images/background-modified.png");
+  background-size: 100vw;
+  background-position: center 205px;
+  background-repeat: no-repeat;
+  border-radius: 50px;
+}
+
 .searchList{
   width: 300px;
   padding: 0;
@@ -48,18 +57,36 @@ input{
 }
 
 .app{
-  display: grid;
-  grid-template-rows: 110px auto;
-  min-height: 110vh;
+  display: flex;
+  flex-direction: column;
+  // grid-template-rows: 118px auto auto;
 
   .logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-size: 3em;
     grid-row: 1;
-    align-self: center;
-    justify-self: center;
-    color: palevioletred;
+    color: #26133C;
+    padding: 18px;
+
+    img{
+      border-radius: 20px;
+    }
+    p{
+      margin: 0;
+    }
   }
   .page{
     grid-row: 2;
+    min-height: 80vh;
   }
+
+  footer{
+    grid-row: 3;
+    height: 4 * 18px;
+    border-radius: 50px;
+    background-color: darkgray;
+  }
+
 }

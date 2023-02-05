@@ -6,9 +6,13 @@ const TrajetCard = (props) => {
     <div className="trajet-card">
       <div className="titre3">Trajet {id + 1}</div>
       <div className="content">
-        <p>Start : {start}</p>
+        <div className='inline'>
+          <b>Start : </b><p>{start}</p>
+        </div>
         <br></br>
-        <p>End : {finish}</p>
+        <div className='inline'>
+          <b>End : </b><p>{finish}</p>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getName, getDate } from '../../functions';
 import Itinairaire from '../TrajetCard/TrajetCard'
 import './Trajet.scss'
 import BackButton from '../Button/BackButton/BackButton';
@@ -39,19 +40,6 @@ const Trajet = () => {
   }, []);
   
   // Functions
-  const getName = (longName) => {
-    const pattern = /^[^(]+/;
-    const result = longName.match(pattern);
-    return result;
-  }
-
-  const getDate= (timestamp ) => {
-    const date = new Date(timestamp * 1000);
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${hours}:${minutes}`;
-  }
-
   const handleAdd = (e) => {
     if (isStartSelect && isFinishSelect){
       let trajet = {};

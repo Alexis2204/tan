@@ -1,6 +1,7 @@
 import './Home.scss';
 import NewButton from '../Button/NewButton/NewButton';
 import Trajet from '../TrajetCard/TrajetCard';
+import { getName } from '../../functions';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,12 +23,6 @@ const Home = () => {
   }, []);
 
   // Functions
-  const getName = (longName) => {
-    const pattern = /^[^(]+/;
-    const result = longName.match(pattern);
-    return result;
-  }
-
   const goToTrajet = (index, e) => {
     navigate('trajet/' + index);
   }

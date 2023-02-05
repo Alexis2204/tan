@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getName } from '../../functions';
 import './New.scss'
 import BackButton from '../Button/BackButton/BackButton';
 
@@ -20,11 +21,6 @@ const New = () => {
 
   
   // Functions
-  const getName = (longName) => {
-    const pattern = /^[^(]+/;
-    const result = longName.match(pattern);
-    return result;
-  }
 
   const handleAdd = (e) => {
     if (isStartSelect && isFinishSelect){

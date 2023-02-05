@@ -1,15 +1,26 @@
 .trajet-card{
-  background-color: aqua;
+  background-color: #26133c;
   border-radius: 50px;
   $padding: 18px;
   padding: $padding;
   width: 325px - 2 * $padding;
 
+  color: #02ebf7;
   .titre3{
-    background-color: chartreuse;
+    background-color: #12f57c;
+    color: #26133c;
     border-radius: 50px;
     padding: 8px 0;
     padding-left: 18px;
+  }
+
+  .inline{
+    display: inline-flex;
+    gap: 5px;
+  }
+
+  b{
+    color: #12f57c;
   }
 
   .content{
