@@ -9,15 +9,10 @@
 .empty{
   text-align: center;
   color: #10f67c;
-  height: 206px;
 }
 
 body{
   background-color: #26133C;
-  // background-image: url("./media/images/background-modified.png");
-  // background-size: 100vw;
-  // background-position: center 205px;
-  // background-repeat: no-repeat;
 }
 
 .searchList{
@@ -80,6 +75,7 @@ input{
   }
   .page{
     grid-row: 2;
+    min-height: 60vh;
   }
 
   footer{
