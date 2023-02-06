@@ -53,23 +53,23 @@ const ListTrajet = (props) => {
 
   
   return (
-    <div className='listTrajetGlobal'>
-      <div className='listTrajet'>
-        {listTrajet.length != 0
-        ? listTrajet.map( (trajet, index) => (
-          <div key={index}>
-            <Trajet
-            id={index}
-            start={trajet.start}
-            finish={trajet.finish}>  
-            </Trajet>
-          </div>
-        ))
-        : <p className='empty'>Ajouter un trajet</p> 
-      }
-      </div>
-      <div className='background'></div>
+  <div className='listTrajetGlobal'>
+    <div className='listTrajet'>
+      {listTrajet.length != 0
+      ? listTrajet.map( (trajet, index) => (
+        <div key={index}>
+          <Trajet
+          id={index}
+          start={trajet.start}
+          finish={trajet.finish}>  
+          </Trajet>
+        </div>
+      ))
+      : <p className='empty'>Ajouter un trajet</p> 
+    }
     </div>
+    <div className='background'></div>
+  </div>
   );
 }
 
