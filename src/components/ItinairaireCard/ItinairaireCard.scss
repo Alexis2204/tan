@@ -1,0 +1,42 @@
+.itinairaire-card{
+  background-color: #26133c;
+  border-radius: 50px;
+  $padding: 18px;
+  padding: $padding;
+  width: 325px - 2 * $padding;
+  filter: brightness(1.2);
+
+  color: #02ebf7;
+  .titre3{
+    background-color: #12f57c;
+    color: #26133c;
+    border-radius: 50px;
+    padding: 8px 0;
+    padding-left: 18px;
+    display: flex;
+    justify-content: space-between;
+    width: 270px;
+
+    b{
+      color: #26133c;
+      justify-self: flex-end;
+      padding-right: 18px;
+    }
+  }
+
+  .inline{
+    display: inline-flex;
+    gap: 5px;
+  }
+
+  b{
+    color: #12f57c;
+  }
+
+  .content{
+    padding-top: $padding;
+    p{
+      margin: 0;
+    }
+  }
+}

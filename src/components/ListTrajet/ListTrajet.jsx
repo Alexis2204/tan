@@ -1,5 +1,5 @@
 import './ListTrajet.scss'
-import Trajet from '../components/TrajetCard/TrajetCard';
+import Trajet from '../TrajetCard/TrajetCard';
 import { useNavigate } from 'react-router-dom';
 
 const ListTrajet = (props) => {

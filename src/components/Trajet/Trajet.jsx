@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getName, getDate } from '../../functions';
-import Itinairaire from '../TrajetCard/TrajetCard'
+import Itinairaire from '../ItinairaireCard/ItinairaireCard';
 import './Trajet.scss'
 import BackButton from '../Button/BackButton/BackButton';
+import tramblack from '../../media/images/tramblack.png'
+import tramgreen from '../../media/images/tramgeen.png'
+import busblack from '../../media/images/busblack.png'
+import busgreen from '../../media/images/busgreen.png'
 
 const Trajet = () => {
   const navigate = useNavigate();
@@ -11,6 +15,8 @@ const Trajet = () => {
   const { id } = useParams();
   const [listTrajet, setListTrajet] = useState(JSON.parse(localStorage.getItem('listTrajet')) || []);
   const [listItineraire, setListItineraire] = useState([]);
+  let [onlyTram, setOnlyTram] = useState(true);
+  let [onlyBus, setOnlyBus] = useState(false);
   
   // Start
   const [start, setStart] = useState('');
@@ -33,9 +39,13 @@ const Trajet = () => {
       getItineraire();
     }
   }, []);
+
+  useEffect(() => {
+    getItineraire();
+  }, [onlyTram, onlyBus])
   
   useEffect(() => {
-    const intervalId = setInterval(getItineraire, 5000);
+    const intervalId = setInterval(getItineraire, 30000);
     return () => clearInterval(intervalId);
   }, []);
   
@@ -59,9 +69,53 @@ const Trajet = () => {
       localStorage.setItem('listTrajet', JSON.stringify(newListTrajet));
       navigate("/");
   }
+
+  const handleOnlyTram = (e) => {
+    setOnlyTram(onlyTram ? false : true);
+  }
+
+  const isOnlyTram = (itinairaire) => {
+    let result = true;
+    itinairaire.sections.map(section => {
+      if (section.type == "TRANSPORT" && section.lines && section.lines.type.name != "Tramway"){
+        result = false;
+      }
+    })
+    return result;
+  }
+  
+  const handleOnlyBus = (e) => {
+    setOnlyBus(onlyBus ? false : true);
+  }
+
+  const isOnlyBus = (itinairaire) => {
+    let result = true;
+    itinairaire.sections.map(section => {
+      if (section.type == "TRANSPORT" && section.lines && section.lines.type.name == "Tramway"){
+        result = false;
+      }
+    })
+    return result;
+  }
+
+  const getListSection = (itinairaire) => {
+    let listSection = [];
+    itinairaire.sections.map(section => {
+      if (section.type == "PIED"){
+        listSection.push("P");
+      } else if (section.type == "TRANSPORT") {
+        if ( ["1", "2", "3"].includes(section.lines.shortName)) {
+          listSection.push("T" + section.lines.shortName);
+        } else {
+          listSection.push(section.lines.shortName);
+        }
+
+      }
+    })
+    return listSection.toString()
+  }
   
   // API
-  // TO DO : finir l'itinaire et faire une liste de card avec les différentes heures
   const getItineraire = async () => {
     const queryParams = 
       // `from[name]=${encodeURIComponent(from.name)}` +
@@ -90,7 +144,9 @@ const Trajet = () => {
       const json = await response.json();
       let newListItinairaire = [];
       json.map(itinairaire => {
-        newListItinairaire.push({"start": getDate(itinairaire.departDate), "finish": getDate(itinairaire.arriveeDate) })
+        if ((!onlyTram && !onlyBus )|| (onlyTram && isOnlyTram(itinairaire)) || (onlyBus && isOnlyBus(itinairaire))){
+          newListItinairaire.push({"start": getDate(itinairaire.departDate), "finish": getDate(itinairaire.arriveeDate), "listSection": getListSection(itinairaire) })
+        }
       })
       setListItineraire(newListItinairaire);
   }
@@ -139,7 +195,6 @@ const Trajet = () => {
     setFinishJson(item);
   }
 
-
   return (
     <div className='trajet' >
       <div className='search'>
@@ -162,13 +217,33 @@ const Trajet = () => {
           ))}
         </ul>
       </div>
+      <div className="parameters">
+        {
+        onlyTram 
+        ? <div className='icon green' onClick={(e) => {handleOnlyTram(e)}}>
+            <img src={tramgreen} height='45px'></img>
+          </div>
+        : <div className='icon black' onClick={(e) => {handleOnlyTram(e)}}>
+            <img src={tramblack} height='45px'></img>
+          </div>
+        }
+        {
+        onlyBus 
+        ? <div className='icon green bus' onClick={(e) => {handleOnlyBus(e)}}>
+            <img src={busgreen} height='39px'></img>
+          </div>
+        : <div className='icon black bus' onClick={(e) => {handleOnlyBus(e)}}>
+            <img src={busblack} height='39px'></img>
+          </div>}
+      </div>
       {listItineraire.length != 0
       ? listItineraire.map( (itinairaire, index) => (
         <Itinairaire
             key={index}
             id={index}
             start={itinairaire.start}
-            finish={itinairaire.finish}>  
+            finish={itinairaire.finish}
+            listSection = {itinairaire.listSection}>  
           </Itinairaire>
       ))
       : <p className='empty'>Loading ...</p>}

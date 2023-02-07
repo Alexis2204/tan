@@ -15,6 +15,41 @@
     background-color:#02e9f7;
   }
 
+  .parameters{
+    display: inline-flex;
+    gap: 18px;
+    width: 284px;
+  }
+
+  .icon{
+    border-radius: 100%;
+    border: solid 2px;
+    padding: 3px;
+    height: 45px;
+    width: 45px;
+  }
+  .bus{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .black{
+    border-color: black;
+    height: 45px;
+    width: 45px;
+  }
+  .green{
+    border-color: #02e9f7;
+    border-width: 4px;
+    filter: drop-shadow(4px 5px 1px black);
+  }
+
+  .red{
+    background-color: red;
+    height: 35px;
+    width: 35px;
+  }
+
   .ButtonModify{
     background-color: #02e9f7;
     position: fixed;

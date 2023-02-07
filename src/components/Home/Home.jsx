@@ -1,6 +1,6 @@
 import './Home.scss';
 import NewButton from '../Button/NewButton/NewButton';
-import ListTrajet from '../../ListTrajet/ListTrajet';
+import ListTrajet from '../ListTrajet/ListTrajet';
 import { getName } from '../../functions';
 import { useState, useEffect } from 'react';
 
