@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getName, getDate } from '../../functions';
+import { getName, getDate, formatTimestamp } from '../../functions';
 import Itinairaire from '../ItinairaireCard/ItinairaireCard';
 import './Trajet.scss'
 import BackButton from '../Button/BackButton/BackButton';
@@ -20,6 +20,7 @@ const Trajet = () => {
   const [onlyTram, setOnlyTram] = useState(true);
   const [onlyBus, setOnlyBus] = useState(false);
   const [reload, setReload] = useState(false);
+  const [lastDateStart, setLastDateStart] = useState();
   
   // Start
   const [start, setStart] = useState('');
@@ -45,6 +46,10 @@ const Trajet = () => {
   useEffect(() => {
     getItineraire();
   }, [onlyTram, onlyBus, startJson, finishJson])
+
+  useEffect(() => {
+    getMoreItineraire(lastDateStart);
+  }, [lastDateStart])
   
   useEffect(() => {
     const intervalId = setInterval(getItineraire, 30000);
@@ -126,6 +131,37 @@ const Trajet = () => {
   }
   
   // API
+  const getMoreItineraire = async (date) => {
+    if (startJson && finishJson){
+      let startDate = formatTimestamp(date);
+      const queryParams = 
+        `from[externalCode]=${startJson.externalCode}` +
+        `&from[type]=${startJson.type}` +
+        `&to[externalCode]=${finishJson.externalCode}` +
+        `&to[type]=${finishJson.type}` +
+        `&datetime=${startDate}` +
+        `&datetype=before` +
+        `&mode[]=0` +
+        `&extra[perturbation]=false` +
+        `&extra[acccessibitlity]=false`;
+
+      const url = `${api}/referentiel/getitineraire?${queryParams}`;
+      
+      let newListItinairaire = [];
+      const response = await fetch(url);
+      const json = await response.json();
+      json.map(itinairaire => {
+        if ((!onlyTram && !onlyBus )|| (onlyTram && isOnlyTram(itinairaire)) || (onlyBus && isOnlyBus(itinairaire))){
+          newListItinairaire.push({"start": getDate(itinairaire.departDate), "finish": getDate(itinairaire.arriveeDate), "listSection": getListSection(itinairaire) });
+        }
+      })
+      if (newListItinairaire.length != 0){
+        let concatList = listItineraire.concat(newListItinairaire);
+        setListItineraire(concatList.filter((x, i) => concatList.indexOf(x) === i)); 
+      }
+    }
+  }
+
   const getItineraire = async () => {
     if (startJson && finishJson){
       const queryParams = 
@@ -152,13 +188,18 @@ const Trajet = () => {
       const url = `${api}/referentiel/getitineraire?${queryParams}`;
       
       let newListItinairaire = [];
+      let listDateStart = [];
       const response = await fetch(url);
       const json = await response.json();
       json.map(itinairaire => {
         if ((!onlyTram && !onlyBus )|| (onlyTram && isOnlyTram(itinairaire)) || (onlyBus && isOnlyBus(itinairaire))){
-          newListItinairaire.push({"start": getDate(itinairaire.departDate), "finish": getDate(itinairaire.arriveeDate), "listSection": getListSection(itinairaire) })
+          newListItinairaire.push({"start": getDate(itinairaire.departDate), "finish": getDate(itinairaire.arriveeDate), "listSection": getListSection(itinairaire) });
+          listDateStart.push(itinairaire.departDate);
         }
       })
+      if (listDateStart.length != 0){
+        setLastDateStart(listDateStart[listDateStart.length - 1]);
+      }
       setListItineraire(newListItinairaire); 
     }
   }
