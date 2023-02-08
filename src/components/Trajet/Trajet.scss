@@ -28,15 +28,36 @@
     height: 45px;
     width: 45px;
   }
+
   .bus{
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
+  .reload{
+    position: absolute;
+    top: 202px;
+    right: 13px;
+    z-index: 2;
+    border: 0;
+  }
+
+  .animtrue{
+    transform: rotate(360deg);
+    transition: transform 1s;
+  }
+
+  .animfalse{
+    transform: rotate(-360deg);
+    transition: transform 1s;
+  }
+
   .black{
     border-color: black;
     height: 45px;
     width: 45px;
+    filter: contrast(0.5);
   }
   .green{
     border-color: #02e9f7;

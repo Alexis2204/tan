@@ -1,5 +1,5 @@
 import './App.scss'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import NotFound from './components/NotFound/NotFound'
 import Home from './components/Home/Home';
 import New from './components/New/New';
@@ -10,10 +10,11 @@ export default function App() {
   return (
     <Router>
       <div className='app'>
-        <div className='logo'>
-          <img src={logo} alt="logo" height='100px' />
-          {/* <p>Tatatatan</p> */}
-        </div>
+        <Link to="/">
+          <div className='logo'>
+            <img src={logo} alt="logo" height='100px' />
+          </div>
+        </Link>
         <div className='page'>
             <Routes>
               <Route path="/" element={<Home></Home>}/>

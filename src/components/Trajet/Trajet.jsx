@@ -8,6 +8,8 @@ import tramblack from '../../media/images/tramblack.png'
 import tramgreen from '../../media/images/tramgeen.png'
 import busblack from '../../media/images/busblack.png'
 import busgreen from '../../media/images/busgreen.png'
+import reloadblack from '../../media/images/reloadblack.png'
+import reloadgreen from '../../media/images/reloadgreen.png'
 
 const Trajet = () => {
   const navigate = useNavigate();
@@ -15,18 +17,19 @@ const Trajet = () => {
   const { id } = useParams();
   const [listTrajet, setListTrajet] = useState(JSON.parse(localStorage.getItem('listTrajet')) || []);
   const [listItineraire, setListItineraire] = useState([]);
-  let [onlyTram, setOnlyTram] = useState(true);
-  let [onlyBus, setOnlyBus] = useState(false);
+  const [onlyTram, setOnlyTram] = useState(true);
+  const [onlyBus, setOnlyBus] = useState(false);
+  const [reload, setReload] = useState(false);
   
   // Start
   const [start, setStart] = useState('');
-  const [startJson, setStartJson] = useState({});
+  const [startJson, setStartJson] = useState();
   const [listStart, setListStart] = useState([]);
   const [isStartSelect, setIsStartSelect] = useState(true);
   
   // Finish
   const [finish, setFinish] = useState('');
-  const [finishJson, setFinishJson] = useState({});
+  const [finishJson, setFinishJson] = useState();
   const [listFinish, setListFinish] = useState([]);
   const [isFinishSelect, setIsFinishSelect] = useState(true);
   
@@ -36,13 +39,12 @@ const Trajet = () => {
       setStart(getName(listTrajet[id].startJson.name));
       setFinishJson(listTrajet[id].finishJson);
       setFinish(getName(listTrajet[id].finishJson.name));
-      getItineraire();
     }
   }, []);
 
   useEffect(() => {
     getItineraire();
-  }, [onlyTram, onlyBus])
+  }, [onlyTram, onlyBus, startJson, finishJson])
   
   useEffect(() => {
     const intervalId = setInterval(getItineraire, 30000);
@@ -68,6 +70,14 @@ const Trajet = () => {
       newListTrajet.splice(id, 1);
       localStorage.setItem('listTrajet', JSON.stringify(newListTrajet));
       navigate("/");
+  }
+
+  const handleReload = (e) => {
+    setReload(reload ? false : true);
+    setStart(getName(finishJson.name));
+    setFinish(getName(startJson.name));
+    setStartJson(finishJson);
+    setFinishJson(startJson);
   }
 
   const handleOnlyTram = (e) => {
@@ -117,38 +127,40 @@ const Trajet = () => {
   
   // API
   const getItineraire = async () => {
-    const queryParams = 
-      // `from[name]=${encodeURIComponent(from.name)}` +
-      `&from[externalCode]=${listTrajet[id].startJson.externalCode}` +
-      `&from[type]=${listTrajet[id].startJson.type}` +
-      // `&from[typeExtra]=${encodeURIComponent(from.typeExtra)}` +
-      // `&from[coord][lat]=${from.coord.lat}` +
-      // `&from[coord][lng]=${from.coord.lng}` +
-      // `&from[id]=${encodeURIComponent(from.id)}` +
-      // `&to[name]=${encodeURIComponent(to.name)}` +
-      `&to[externalCode]=${listTrajet[id].finishJson.externalCode}` +
-      `&to[type]=${listTrajet[id].finishJson.type}` +
-      // `&to[typeExtra]=${encodeURIComponent(to.typeExtra)}` +
-      // `&to[coord][lat]=${to.coord.lat}` +
-      // `&to[coord][lng]=${to.coord.lng}` +
-      // `&to[id]=${encodeURIComponent(to.id)}` +
-      `&datetime=` +
-      `&datetype=now` +
-      `&mode[]=0` +
-      `&extra[perturbation]=false` +
-      `&extra[acccessibitlity]=false`;
+    if (startJson && finishJson){
+      const queryParams = 
+        // `from[name]=${encodeURIComponent(from.name)}` +
+        `&from[externalCode]=${startJson.externalCode}` +
+        `&from[type]=${startJson.type}` +
+        // `&from[typeExtra]=${encodeURIComponent(from.typeExtra)}` +
+        // `&from[coord][lat]=${from.coord.lat}` +
+        // `&from[coord][lng]=${from.coord.lng}` +
+        // `&from[id]=${encodeURIComponent(from.id)}` +
+        // `&to[name]=${encodeURIComponent(to.name)}` +
+        `&to[externalCode]=${finishJson.externalCode}` +
+        `&to[type]=${finishJson.type}` +
+        // `&to[typeExtra]=${encodeURIComponent(to.typeExtra)}` +
+        // `&to[coord][lat]=${to.coord.lat}` +
+        // `&to[coord][lng]=${to.coord.lng}` +
+        // `&to[id]=${encodeURIComponent(to.id)}` +
+        `&datetime=` +
+        `&datetype=now` +
+        `&mode[]=0` +
+        `&extra[perturbation]=false` +
+        `&extra[acccessibitlity]=false`;
 
       const url = `${api}/referentiel/getitineraire?${queryParams}`;
-
+      
+      let newListItinairaire = [];
       const response = await fetch(url);
       const json = await response.json();
-      let newListItinairaire = [];
       json.map(itinairaire => {
         if ((!onlyTram && !onlyBus )|| (onlyTram && isOnlyTram(itinairaire)) || (onlyBus && isOnlyBus(itinairaire))){
           newListItinairaire.push({"start": getDate(itinairaire.departDate), "finish": getDate(itinairaire.arriveeDate), "listSection": getListSection(itinairaire) })
         }
       })
-      setListItineraire(newListItinairaire);
+      setListItineraire(newListItinairaire); 
+    }
   }
 
   // Start API 
@@ -169,7 +181,6 @@ const Trajet = () => {
   const handleChangeStart = (e) => {
     setStart(e.target.value);
     setIsStartSelect(false);
-    setStartJson({});
     setListStartStations(e.target.value);
   }
 
@@ -184,7 +195,6 @@ const Trajet = () => {
   const handleChangeFinish = (e) => {
     setFinish(e.target.value);
     setIsFinishSelect(false);
-    setFinishJson({});
     setListFinishStations(e.target.value);
   }
 
@@ -207,6 +217,15 @@ const Trajet = () => {
           ))}
         </ul>
       </div>
+      {reload 
+      ?
+      <div className='icon green reload animtrue' onClick={(e) => {handleReload(e)}}>
+            <img src={reloadgreen} height='45px'></img>
+      </div>
+      :
+      <div className='icon black reload animfalse' onClick={(e) => {handleReload(e)}}>
+            <img src={reloadblack} height='45px'></img>
+      </div>}
       <div className='search'>
         <input type="texte" placeholder='Arrivée' id='finish' value={finish} onChange={(e) => {handleChangeFinish(e)}} />
         <ul className='searchList'>
