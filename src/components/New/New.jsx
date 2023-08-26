@@ -90,7 +90,7 @@ const New = () => {
   return (
     <div className='new' >
       <div className='search'>
-        <input type="texte" placeholder='Départ' id='start' value={start} onChange={(e) => {handleChangeStart(e)}} />
+        <input type="texte" placeholder='Départ' autoComplete='off' id='start' value={start} onChange={(e) => {handleChangeStart(e)}} />
         <ul className='searchList'>
           {listStart.filter(item => item.type == 0).map(item => (
             <li key={item.externalCode} onClick={(e) => {selectStart(item, e)}}>
@@ -100,7 +100,7 @@ const New = () => {
         </ul>
       </div>
       <div className='search'>
-        <input type="texte" placeholder='Arrivée' id='finish' value={finish} onChange={(e) => {handleChangeFinish(e)}} />
+        <input type="texte" placeholder='Arrivée' autoComplete='off' id='finish' value={finish} onChange={(e) => {handleChangeFinish(e)}} />
         <ul className='searchList'>
           {listFinish.filter(item => item.type == 0).map(item => (
             <li key={item.externalCode} onClick={(e) => {selectFinish(item, e)}}>

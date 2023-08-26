@@ -11,7 +11,8 @@
   bottom: 46px;
   left: 50%;
   transform: translate(-50%, 0);
-  filter: drop-shadow(0 4px 1px black);
+  filter: drop-shadow(0 1px 2px black);
+  border: solid 5px #26133c;
 
   .padding{
     padding: $padding;

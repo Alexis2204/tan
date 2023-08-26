@@ -27,6 +27,7 @@
     padding: 3px;
     height: 45px;
     width: 45px;
+    cursor: pointer;
   }
 
   .bus{
@@ -77,6 +78,7 @@
     bottom: 18px;
     right: 18px;
     z-index: 2;
+    cursor: pointer;
   }
 
   .ButtonDelete{
@@ -85,5 +87,6 @@
     bottom: 18px;
     left: 18px;
     z-index: 2;
+    cursor: pointer;
   }
 }
