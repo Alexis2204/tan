@@ -83,6 +83,7 @@ const Trajet = () => {
     setFinish(getName(startJson.name));
     setStartJson(finishJson);
     setFinishJson(startJson);
+    setListItineraire([])
   }
 
   const handleOnlyTram = (e) => {
@@ -306,7 +307,7 @@ const Trajet = () => {
             listSection = {itinairaire.listSection}>  
           </Itinairaire>
       ))
-      : <p className='empty'>Loading ...</p>}
+      : <div class="dots-10"></div>}
       <div className='Button ButtonDelete' onClick={(e) => {handleDelete(e)}}>
         Supprimer
       </div>

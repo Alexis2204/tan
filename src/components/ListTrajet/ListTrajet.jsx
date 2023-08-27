@@ -6,14 +6,19 @@ const ListTrajet = (props) => {
   const {listTrajet} = props;
   const navigate = useNavigate();
   const goToTrajet = (index, e) => {
-    navigate('trajet/' + index);
+    setTimeout(() => {
+      navigate('trajet/' + index); // Use `id` instead of `index`
+    }, 200);  
   }
-  
+
   return (
   <div className='listTrajet'>
     {listTrajet.length != 0
     ? listTrajet.map( (trajet, index) => (
-      <div key={index} onClick={(e) => {goToTrajet(index, e)}}>
+      <div key={index} 
+        onClick={(e) => {goToTrajet(index, e)}}
+        className="trajet-item"
+        >
         <Trajet
         id={index}
         start={trajet.start}
